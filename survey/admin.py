@@ -3,7 +3,7 @@ from django.contrib import admin
 from survey.actions import make_published
 from survey.exporter.csv import Survey2Csv
 from survey.exporter.tex import Survey2Tex
-from survey.models import Answer, Category, Question, Response, Survey
+from survey.models import Answer, Category, Question, Response, Survey, IntentList
 
 
 class QuestionInline(admin.StackedInline):
@@ -45,8 +45,13 @@ class ResponseAdmin(admin.ModelAdmin):
     # specifies the order as well as which fields to act on
     readonly_fields = ("survey", "created", "updated", "interview_uuid", "user")
 
+class IntentListAdmin(admin.ModelAdmin):
+    pass
+
+
 
 # admin.site.register(Question, QuestionInline)
 # admin.site.register(Category, CategoryInline)
 admin.site.register(Survey, SurveyAdmin)
 admin.site.register(Response, ResponseAdmin)
+admin.site.register(IntentList, IntentListAdmin)

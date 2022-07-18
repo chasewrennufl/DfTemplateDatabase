@@ -6,7 +6,6 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
-
 def in_duration_day():
     return now() + timedelta(days=settings.DEFAULT_SURVEY_PUBLISHING_DURATION)
 
@@ -35,6 +34,7 @@ class Survey(models.Model):
     publish_date = models.DateField(_("Publication date"), blank=True, null=False, default=now)
     expire_date = models.DateField(_("Expiration date"), blank=True, null=False, default=in_duration_day)
     redirect_url = models.URLField(_("Redirect URL"), blank=True)
+    
 
     class Meta:
         verbose_name = _("survey")
@@ -65,3 +65,5 @@ class Survey(models.Model):
 
     def is_all_in_one_page(self):
         return self.display_method == self.ALL_IN_ONE_PAGE
+
+    
