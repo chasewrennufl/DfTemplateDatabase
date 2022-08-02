@@ -3,6 +3,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from .survey import Survey
+from .intent import IntentList
+import uuid
 
 try:
     from django.conf import settings
@@ -27,6 +29,9 @@ class Response(models.Model):
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, verbose_name=_("Survey"), related_name="responses")
     user = models.ForeignKey(user_model, on_delete=models.SET_NULL, verbose_name=_("User"), null=True, blank=True)
     interview_uuid = models.CharField(_("Interview unique identifier"), max_length=36)
+    intent_List = models.ForeignKey(IntentList, on_delete=models.CASCADE, verbose_name=_("Intent List"), related_name="responses", null=True)
+    project_id = models.CharField(max_length = 30)
+    auth = models.FileField()
 
     class Meta:
         verbose_name = _("Set of answers to surveys")

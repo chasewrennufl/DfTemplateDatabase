@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from survey.actions import make_published
+from survey.actions import make_published, send_to_dialogflow
 from survey.exporter.csv import Survey2Csv
 from survey.exporter.tex import Survey2Tex
-from survey.models import Answer, Category, Question, Response, Survey, IntentList
+from survey.models import Answer, Category, Question, Response, Survey, IntentList, Intent
 
 
 class QuestionInline(admin.StackedInline):
@@ -44,9 +44,15 @@ class ResponseAdmin(admin.ModelAdmin):
     inlines = [AnswerBaseInline]
     # specifies the order as well as which fields to act on
     readonly_fields = ("survey", "created", "updated", "interview_uuid", "user")
+    actions =[send_to_dialogflow]
+
+class IntentInline(admin.StackedInline):
+    model = Intent   
 
 class IntentListAdmin(admin.ModelAdmin):
-    pass
+    inlines = [
+        IntentInline,
+    ]
 
 
 
